@@ -1,5 +1,5 @@
 // 검색어 정규화 함수
-function normalizeSearchTerm(term) {
+export function normalizeSearchTerm(term) {
   return term
     .toLowerCase()                    // 소문자 변환
     .replace(/\s+/g, '')             // 모든 공백 제거
@@ -8,7 +8,7 @@ function normalizeSearchTerm(term) {
 }
 
 // 한글 초성 추출 함수
-function getChosung(str) {
+export function getChosung(str) {
   const chosungList = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
   let result = '';
   
@@ -22,7 +22,7 @@ function getChosung(str) {
 }
 
 // 향상된 검색 함수
-function searchMusic(query, musicDatabase) {
+export function searchMusic(query, musicDatabase) {
   const normalizedQuery = normalizeSearchTerm(query);
   const chosungQuery = getChosung(query);
   
@@ -60,7 +60,7 @@ function searchMusic(query, musicDatabase) {
 }
 
 // 검색 결과 점수 계산 (관련도 순 정렬)
-function searchWithRanking(query, musicDatabase) {
+export function searchWithRanking(query, musicDatabase) {
   const normalizedQuery = normalizeSearchTerm(query);
   const results = musicDatabase.songs.map(song => {
     let score = 0;
@@ -94,8 +94,8 @@ function searchWithRanking(query, musicDatabase) {
   return results;
 }
 
-// 사용 예시
-const musicDatabase = {
+// 음악 데이터베이스
+export const musicDatabase = {
   songs: [
     {
       id: "seven",
@@ -123,11 +123,39 @@ const musicDatabase = {
       releaseDate: "2017-02-13",
       streamCount: 500000000,
       chartRank: 5
+    },
+    {
+      id: "dynamite",
+      title: "Dynamite",
+      artist: "BTS",
+      album: "BE",
+      releaseDate: "2020-08-21",
+      streamCount: 1500000000,
+      chartRank: 1
+    },
+    {
+      id: "stay-alive",
+      title: "Stay Alive",
+      artist: "정국",
+      album: "7FATES: CHAKHO OST",
+      releaseDate: "2022-02-11",
+      streamCount: 200000000,
+      chartRank: 3
+    },
+    {
+      id: "permission-to-dance",
+      title: "Permission to Dance",
+      artist: "BTS",
+      album: "Butter",
+      releaseDate: "2021-07-09",
+      streamCount: 800000000,
+      chartRank: 1
     }
   ]
 };
 
-// 테스트
+/*
+// 테스트 코드 (필요시 주석 해제)
 console.log("=== 검색 테스트 ===");
 console.log("'정국' 검색:", searchMusic("정국", musicDatabase));
 console.log("'jungkook' 검색:", searchMusic("jungkook", musicDatabase));
@@ -138,3 +166,4 @@ console.log("'butter' 검색:", searchMusic("butter", musicDatabase));
 // 랭킹 검색 테스트
 console.log("\n=== 랭킹 검색 테스트 ===");
 console.log("'정국' 랭킹 검색:", searchWithRanking("정국", musicDatabase));
+*/
